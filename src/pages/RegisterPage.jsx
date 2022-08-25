@@ -10,7 +10,7 @@ export const RegisterPage = () => {
     const [password, setPassword] = useState('')
 
     const  status  = useSelector((state) => {
-        console.log(state.auth)
+        // console.log(state.auth)
         return state.auth
     } )
     console.log(status)
@@ -18,7 +18,8 @@ export const RegisterPage = () => {
 
     useEffect(() => {
         if (status) {
-            toast(status)
+            console.log(status)
+            toast(status.status)
         }
     },[status])
 

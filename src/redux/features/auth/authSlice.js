@@ -8,6 +8,8 @@ const initialState = {
     status: null,
 }
 
+let errorcode = null
+
 export const registerUser = createAsyncThunk('auth/registerUser', async ({username, password}) => {
     try {
         const {data} = await axios.post('/auth/register', {
@@ -22,8 +24,12 @@ export const registerUser = createAsyncThunk('auth/registerUser', async ({userna
 
     } catch (error) {
         console.log(error)
+        errorcode = error.response.data
+        console.log(errorcode.message)
+
     }
 })
+
 
 
 export const authSlice = createSlice({
@@ -37,12 +43,12 @@ export const authSlice = createSlice({
         },
         [registerUser.fulfilled]: (state, action) => {
             state.isLoading = false
-            state.status = action.payload.message
-            state.use = action.payload.user
-            state.token = action.payload.token
+            state.status = action?.payload?.message ?? errorcode?.message
+            state.use = action?.payload?.user
+            state.token = action?.payload?.token
         },
         [registerUser.rejected]: (state, action) => {
-            state.status = action.payload.message
+            state.status = action.payload.message ?? errorcode?.message
             state.isLoading = false
         },
     }
