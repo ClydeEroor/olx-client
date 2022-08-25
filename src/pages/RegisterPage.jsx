@@ -23,11 +23,6 @@ export const RegisterPage = () => {
         }
     },[status])
 
-
-
-
-
-
     const handleSubmit = () => {
         try {
             dispatch(registerUser({ username, password }))

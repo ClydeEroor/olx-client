@@ -8,7 +8,7 @@ const initialState = {
     status: null,
 }
 
-let errorcode = null
+
 
 export const registerUser = createAsyncThunk('auth/registerUser', async ({username, password}) => {
     try {
@@ -23,10 +23,10 @@ export const registerUser = createAsyncThunk('auth/registerUser', async ({userna
         return data
 
     } catch (error) {
-        console.log(error)
-        errorcode = error.response.data
-        console.log(errorcode.message)
 
+        console.log(error)
+
+        throw error.response.data
     }
 })
 
@@ -43,12 +43,13 @@ export const authSlice = createSlice({
         },
         [registerUser.fulfilled]: (state, action) => {
             state.isLoading = false
-            state.status = action?.payload?.message ?? errorcode?.message
+            state.status = action?.payload?.message
             state.use = action?.payload?.user
             state.token = action?.payload?.token
         },
         [registerUser.rejected]: (state, action) => {
-            state.status = action.payload.message ?? errorcode?.message
+            console.log(action)
+            state.status = action.error.message
             state.isLoading = false
         },
     }
