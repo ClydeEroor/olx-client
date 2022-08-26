@@ -1,76 +1,81 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import { registerUser } from "../redux/features/auth/authSlice";
-import { toast } from "react-toastify";
+import {registerUser} from "../redux/features/auth/authSlice";
+import {toast} from "react-toastify";
+import {ErrorMessage, Field, Form, Formik} from "formik";
+import * as Yup from 'yup'
+
+const initialValues = {
+    username: '',
+    password: ''
+}
+
+const validationSchema = Yup.object({
+    username: Yup.string().min(3).required(),
+    password: Yup.string().min(6).required()
+})
 
 export const RegisterPage = () => {
-
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-
-    const  status  = useSelector((state) => {
-        // console.log(state.auth)
-        return state.auth
-    } )
-    console.log(status)
+    const status = useSelector((state) => state.auth)
     const dispatch = useDispatch()
 
     useEffect(() => {
         if (status) {
-            console.log(status)
             toast(status.status)
         }
-    },[status])
+    }, [status])
 
-    const handleSubmit = () => {
-        try {
-            dispatch(registerUser({ username, password }))
-            setPassword('')
-            setUsername('')
-        } catch (error) {
-            console.log(error)
-        }
+    const handleSubmit = ({username, password}) => {
+        dispatch(registerUser({username, password}))
     }
 
 
     return (
-        <form onSubmit={e => e.preventDefault()}
-              className="w-1/4 h-60 mx-auto mt-60"
+        <Formik
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
+            validationSchema={validationSchema}
         >
-            <h1 className="text-lg text-white text-center">Регистрация</h1>
-            <label className="text-xs text-gray-400">
-                Username:
-                <input type="text"
-                       value={username}
-                       onChange={(e) => setUsername(e.target.value)}
-                       placeholder="Username"
-                       className="mt-1 text-black w-full rounded-lg bg-gray-400 border py-1 px-2 text-xs outline-none placeholder:text-gray-700"
-                />
-            </label>
+            <Form className="w-1/4 h-60 mx-auto mt-60">
+                <h1 className="text-lg text-white text-center">Регистрация</h1>
+                <label className="text-xs text-gray-400">
+                    Username:
+                    <Field
+                        id="username"
+                        name={"username"}
+                        placeholder={"User name"}
+                        className="mt-1 text-black w-full rounded-lg bg-gray-400 border py-1 px-2 text-xs outline-none placeholder:text-gray-700"
+                    />
+                </label>
+                <ErrorMessage name={'username'}/>
 
-            <label className="text-xs text-gray-400">
-                Password:
-                <input type="password"
-                       value={password}
-                       onChange={(e) => setPassword(e.target.value)}
-                       placeholder="Password"
-                       className="mt-1 text-black w-full rounded-lg bg-gray-400 border py-1 px-2  text-xs outline-none placeholder:text-gray-700"
-                />
-            </label>
 
-            <div className="flex gap-8 justify-center mt-4">
-                <button type="submit"
-                        onClick={handleSubmit}
+                <label className="text-xs text-gray-400">
+                    Password:
+                    <Field
+                        id={"password"}
+                        type="password"
+                        name={"password"}
+                        placeholder="Password"
+                        className="mt-1 text-black w-full rounded-lg bg-gray-400 border py-1 px-2  text-xs outline-none placeholder:text-gray-700"
+                    />
+                </label>
+                <ErrorMessage name={'password'}/>
+
+                <div className="flex gap-8 justify-center mt-4">
+                    <button
+                        type="submit"
                         className="justify-center items-center text-xs bg-gray-600 text-white rounded-sm py-2 px-4"
-                >Подтвердить
-                </button>
-                <Link to='/login'
-                      className="flex justify-center items-center text-xs text-white"
-                >Уже зарегистрированы ?
-                </Link>
-            </div>
-        </form>
+                    >Подтвердить
+                    </button>
+                    <Link to='/login'
+                          className="flex justify-center items-center text-xs text-white"
+                    >Уже зарегистрированы ?
+                    </Link>
+                </div>
+            </Form>
+        </Formik>
     );
 };
 
