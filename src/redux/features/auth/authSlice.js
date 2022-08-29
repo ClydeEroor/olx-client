@@ -8,7 +8,7 @@ const initialState = {
     status: null,
 }
 
-
+//Register USer
 
 export const registerUser = createAsyncThunk('auth/registerUser', async ({username, password}) => {
     try {
@@ -30,13 +30,65 @@ export const registerUser = createAsyncThunk('auth/registerUser', async ({userna
     }
 })
 
+//Login User
+
+export const loginUser = createAsyncThunk(
+    'auth/loginUser',
+    async ({username, password}) => {
+        try {
+            const {data} = await axios.post('/auth/login', {
+                username,
+                password,
+            })
+            if (data.token) {
+                window.localStorage.setItem('token', data.token)
+            }
+            return data
+
+        } catch (error) {
+
+            console.log(error)
+
+            throw error.response.data
+        }
+    })
+
+
+
+// Check Auth
+
+export const getMe = createAsyncThunk(
+    'auth/loginUser',
+    async () => {
+        try {
+            const {data} = await axios.get('/auth/me')
+            return data
+
+        } catch (error) {
+
+            console.log(error)
+
+            throw error.response.data
+        }
+    })
+
+
 
 
 export const authSlice = createSlice({
     name: 'auth',
-    initialState, //Todo удалить {}
-    reducers: {},
+    initialState,
+    reducers: {
+        logOut: (state) => {
+            state.user = null
+            state.token = null
+            state.isLoading = null
+            state.status = null
+        }
+    },
     extraReducers: {
+
+        // Register User
         [registerUser.pending]: (state) => {
             state.isLoading = true
             state.status = null
@@ -44,7 +96,7 @@ export const authSlice = createSlice({
         [registerUser.fulfilled]: (state, action) => {
             state.isLoading = false
             state.status = action?.payload?.message
-            state.use = action?.payload?.user
+            state.user = action?.payload?.user
             state.token = action?.payload?.token
         },
         [registerUser.rejected]: (state, action) => {
@@ -52,7 +104,57 @@ export const authSlice = createSlice({
             state.status = action.error.message
             state.isLoading = false
         },
+
+        // Login User
+
+        [loginUser.pending]: (state) => {
+            state.isLoading = true
+            state.status = null
+        },
+        [loginUser.fulfilled]: (state, action) => {
+            console.log(action)
+            state.isLoading = false
+            state.status = action?.payload?.message
+            state.user = action?.payload?.user
+            state.token = action?.payload?.token
+          
+        },
+        },
+    
+        [loginUser.rejected]: (state, action) => {
+            console.log(action)
+            state.status = action.error.message
+            state.isLoading = false
+          
+        },
+
+        // Check Auth
+
+        [getMe.pending]: (state) => {
+            state.isLoading = true
+            state.status = null
+        },
+        [getMe.fulfilled]: (state, action) => {
+            state.isLoading = false
+            state.status = null
+            state.user = action?.payload?.user
+            state.token = action?.payload?.token
+        },
+        [getMe.rejected]: (state, action) => {
+            console.log(state.status)
+            state.status = action.error.message
+            state.isLoading = false
+        },
+
+
     }
-})
+)
+
+console.log(authSlice)
+
+
+export const checkIsAuth = state => Boolean(state.auth.token)
 
 export default authSlice.reducer
+export const { logOut } = authSlice.actions
+

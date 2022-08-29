@@ -1,9 +1,10 @@
 import React from 'react';
 
+
 const PostsPage = () => {
     return (
         <div>
-            Posts
+            Post Page
         </div>
     );
 };
