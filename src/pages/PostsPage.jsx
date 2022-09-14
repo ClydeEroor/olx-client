@@ -4,7 +4,7 @@ import React from 'react';
 const PostsPage = () => {
     return (
         <div>
-            Post Page
+            Posts Page
         </div>
     );
 };

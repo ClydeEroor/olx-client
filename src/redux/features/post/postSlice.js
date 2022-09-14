@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "../../../utils/axios";
 
 const initialState = {
-    post: [],
+    posts: [],
     popularPosts: [],
     loading: false,
 }
@@ -47,7 +47,7 @@ export const postSlice = createSlice({
             },
             [createPost.fulfilled]: (state, action) => {
                 state.loading = false
-                state.post.push(action.payload)
+                state.posts.push(action.payload)
             },
             [createPost.rejected]: (state) => {
                 state.loading = false
@@ -61,7 +61,7 @@ export const postSlice = createSlice({
             },
             [getAllPosts.fulfilled]: (state, action) => {
                 state.loading = false
-                state.post = action.payload.posts
+                state.posts = action.payload.posts
                 state.popularPosts = action.payload.popularPosts
             },
             [getAllPosts.rejected]: (state) => {
