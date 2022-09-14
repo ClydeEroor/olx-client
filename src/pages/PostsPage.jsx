@@ -1,12 +1,14 @@
-import React from 'react';
+import React  from 'react';
 
 
 const PostsPage = () => {
+
+
     return (
-        <div>
-            Posts Page
-        </div>
-    );
+        <div>Posts Page</div>
+    )
+
+
 };
 
 export default PostsPage;
