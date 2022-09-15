@@ -3,7 +3,7 @@ import {AiFillEye, AiOutlineMessage} from "react-icons/ai";
 import Moment from "react-moment";
 import {Link} from "react-router-dom";
 
-const PostItem = ({post}) => {
+export const PostItem = ({post}) => {
     if (!post) {
         return (
             <div className='text-xl text-center text-white py-10'>
@@ -34,7 +34,7 @@ const PostItem = ({post}) => {
                         </div>
                     </div>
                     <div className="text-white text-xl">{post.title}</div>
-                    <p className='text-white opacity-60 text-xs pt-4'>{post.text}</p>
+                    <p className='text-white opacity-60 text-xs pt-4 line-clamp-4'>{post.text}</p>
 
                     <div className='flex gap-3 items-center mt-2'>
                         <button className='flex items-center justify-center gap-2 text-xs text-white opacity-50'>

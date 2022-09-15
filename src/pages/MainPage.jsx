@@ -14,8 +14,7 @@ export const MainPage = () => {
 
     useEffect(() => {
         dispatch(getAllPosts())
-    }, [dispatch])
-    console.log(posts)
+    })
 
     if (!posts.length) {
         return (

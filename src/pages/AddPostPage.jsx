@@ -8,6 +8,7 @@ const AddPostPage = () => {
     const [title, setTitle] = useState('')
     const [text, setText] = useState('')
     const [image, setImage] = useState('')
+
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -38,7 +39,8 @@ const AddPostPage = () => {
             Прикрепить изображение:
             <input type="file" className='hidden' onChange={e => setImage(e.target.files[0])}/>
         </label>
-        <div className='flex object-cover py-2'>{image && <img src={URL.createObjectURL(image)} alt={image.name}/>}</div>
+        <div className='flex object-cover py-2'>{image &&
+            <img src={URL.createObjectURL(image)} alt={image.name}/>}</div>
         <label className='text-xs text-white opacity-60'>
             Заголовок поста:
             <input type='text'
