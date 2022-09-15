@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import { registerUser } from "../redux/features/auth/authSlice";
+import { registerUser  } from "../redux/features/auth/authSlice";
 import { toast } from "react-toastify";
 
 export const RegisterPage = () => {
@@ -10,7 +10,6 @@ export const RegisterPage = () => {
     const [password, setPassword] = useState('')
 
     const  status  = useSelector((state) => {
-        console.log(state.auth)
         return state.auth
     } )
     console.log(status)
@@ -18,14 +17,10 @@ export const RegisterPage = () => {
 
     useEffect(() => {
         if (status) {
-            toast(status)
+            console.log(status)
+            toast(status.status)
         }
     },[status])
-
-
-
-
-
 
     const handleSubmit = () => {
         try {
@@ -36,6 +31,9 @@ export const RegisterPage = () => {
             console.log(error)
         }
     }
+
+
+
 
 
     return (

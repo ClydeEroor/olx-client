@@ -2,7 +2,6 @@ import Layout from "./components/Layout.jsx";
 import {Routes, Route} from 'react-router-dom';
 
 
-
 import MainPage from './pages/MainPage'
 import PostPage from "./pages/PostPage";
 import PostsPage from './pages/PostsPage'
@@ -11,10 +10,21 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import EditPostPage from "./pages/EditPostPage";
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+import {useDispatch} from "react-redux";
+import {useEffect} from "react";
+import { getMe } from "./redux/features/auth/authSlice";
 
 //TODO вернуть Layout
 
 function App() {
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getMe())
+    }, [dispatch])
+
 
     return (
         <Layout>
