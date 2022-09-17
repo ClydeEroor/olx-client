@@ -58,7 +58,6 @@ export const postSlice = createSlice({
         extraReducers: {
 
             //Create Post
-
             [createPost.pending]: (state) => {
                 state.loading = true
             },
