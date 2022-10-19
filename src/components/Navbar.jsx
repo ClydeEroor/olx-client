@@ -21,9 +21,12 @@ const Navbar = () => {
 
 
     return (
-        <div className="flex py-4 justify-between items-center">
-            <span className="flex justify-center items-center w-20 h-10 bg-gray-500  text-xs text-white">POSTER</span>
-
+        <div className="flex py-10 justify-between items-center relative">
+            <div className="container-logo">
+                <div className="ring"></div>
+                <div className="ring"></div>
+                <div className="ring"></div>
+            </div>
             {
                 isAuth && <ul className="flex gap-8">
                     <li>

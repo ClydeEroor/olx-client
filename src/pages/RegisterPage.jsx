@@ -19,6 +19,7 @@ export const RegisterPage = () => {
         if (status) {
             console.log(status)
             toast(status.status)
+
         }
     },[status])
 

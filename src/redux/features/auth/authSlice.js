@@ -155,6 +155,5 @@ console.log(authSlice)
 
 export const checkIsAuth = state => Boolean(state.auth.token)
 
-export default authSlice.reducer
 export const { logOut } = authSlice.actions
 
