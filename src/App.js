@@ -1,7 +1,5 @@
 import Layout from "./components/Layout.jsx";
 import {Routes, Route} from 'react-router-dom';
-
-
 import MainPage from './pages/MainPage'
 import PostPage from "./pages/PostPage";
 import PostsPage from './pages/PostsPage'

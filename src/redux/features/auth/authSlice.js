@@ -100,7 +100,6 @@ export const authSlice = createSlice({
             state.token = action?.payload?.token
         },
         [registerUser.rejected]: (state, action) => {
-            console.log(action)
             state.status = action.error.message
             state.isLoading = false
         },
@@ -112,7 +111,6 @@ export const authSlice = createSlice({
             state.status = null
         },
         [loginUser.fulfilled]: (state, action) => {
-            console.log(action)
             state.isLoading = false
             state.status = action?.payload?.message
             state.user = action?.payload?.user
@@ -122,7 +120,6 @@ export const authSlice = createSlice({
         },
     
         [loginUser.rejected]: (state, action) => {
-            console.log(action)
             state.status = action.error.message
             state.isLoading = false
           
@@ -141,7 +138,6 @@ export const authSlice = createSlice({
             state.token = action?.payload?.token
         },
         [getMe.rejected]: (state, action) => {
-            console.log(state.status)
             state.status = action.error.message
             state.isLoading = false
         },
@@ -149,8 +145,6 @@ export const authSlice = createSlice({
 
     }
 )
-
-console.log(authSlice)
 
 
 export const checkIsAuth = state => Boolean(state.auth.token)

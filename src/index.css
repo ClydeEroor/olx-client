@@ -8,10 +8,12 @@
     /*background: #141E30;  !* fallback for old browsers *!*/
     /*background: -webkit-linear-gradient(to right, #243B55, #141E30);  !* Chrome 10-25, Safari 5.1-6 *!*/
     /*background: linear-gradient(to right, #243B55, #141E30); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
-    min-height: 100vh;
-    background: #000;
+    background-color: #313179;
   }
 }
+
+
+/* Logo */
 .container-logo {
   position: relative;
   display: flex;
@@ -97,5 +99,21 @@
   height: 5px;
   background: #e41cf8;
   box-shadow: 0 0 0 3px #e41cf833, 0 0 0 5px #e41cf822, 0 0 0 7px #e41cf811, 0 0 7px #e41cf8, 0 0 12px #e41cf8;
+}
+
+/* Input */
+.MuiAutocomplete-root {
+  background-color: mediumslateblue;
+  border-radius: 30px;
+  boxShadow: 1px 2px 9px #F4AAB9;
+}
+
+/*Three.js Integration*/
+.main_page {
+  height: 100vh;
+}
+body {
+
+  height: 100%;
 }
 

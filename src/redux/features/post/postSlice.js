@@ -19,14 +19,27 @@ export const createPost = createAsyncThunk(
         }
     })
 
-export const getAllPosts = createAsyncThunk('post/getAllPosts', async () => {
+export const getAllPosts = createAsyncThunk('post/getAllPosts', async (
+    sort) => {
     try {
-        const {data} = await axios.get('/posts')
+        let sortUpDownPrice = sort.openSort
+        let sortFilterFromTo = sort.priceFilterTo
+        let queryString = ""
+        if(sortUpDownPrice) {
+            queryString = `sort=${sortUpDownPrice}`
+        }
+        if (sortFilterFromTo) {
+            queryString = `sort=1&priceFilterTo=${sortFilterFromTo}`
+        }
+
+        const {data} = await axios.get(`/posts?${queryString}`)
+
         return data
     } catch (error) {
         console.log(error)
     }
 })
+
 
 export const removePost = createAsyncThunk('post/removePost', async (id) => {
     try {
@@ -46,9 +59,6 @@ export const updatePost = createAsyncThunk('post/updatedPost', async (updatedPos
         console.log(error)
     }
 })
-
-
-
 
 
 export const postSlice = createSlice({
